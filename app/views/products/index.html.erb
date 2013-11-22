@@ -1,0 +1,14 @@
+<h2>Products</h2>
+<% if @products.blank? %>
+
+There are no products in your store.
+
+<% else %>
+  <ul class="list-group">
+    <% @products.each do |product| %>
+      <li class="list-group-item">
+        <h3><%= link_to(product.title, product_path(product)) %></h3>
+      </li>
+   <% end %>
+  </ul>
+<% end %>

@@ -1,0 +1,10 @@
+<h2>Edit <%= @metafield.key %> <small>Namespace: <% @metafield.namespace %></h2>
+<div class="col-md-6">
+    <%= form_for @metafield, :remote => true, url: metafield_path(@metafield),  html: {class: "form"} do |f| %>
+        <div class="form-group">
+            <label>Value</label>
+            <%= f.text_area :value, :class => "form-control"%>
+        </div>
+            <%= f.submit "Save", :class => "btn btn-success" %>
+        </div>
+    <% end %>

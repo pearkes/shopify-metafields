@@ -1,0 +1,55 @@
+<h2><%= @product.title %></h2>
+<% if @product.metafields.any? %>
+    <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Namespace</th>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+       <%  @product.metafields.each do |metafield| %>
+          <tr>
+            <th><%= metafield.namespace %></th>
+            <td><%= metafield.key %></td>
+            <td>
+            <%= form_for metafield, url: metafield_path(metafield), html: {class: "form form-inline"} do |f| %>
+                <input type="hidden" name="redirect_to" value="/products/<%= @product.id %>">
+                <div class="form-group col-md-8">
+                    <%= f.text_area :value, :class => "form-control"%>
+                </div>
+                <div class="form-group">
+                    <%= f.submit "Save", :class => "btn btn-success" %>
+                </div>
+            <% end %>
+            </td>
+            <td>
+              <%= link_to raw('Delete'), metafield_path(metafield, :params => {:redirect_to => "/products/#{@product.id}"}), :method => :delete, :class => "btn btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+    </tbody>
+</table>
+<% else %>
+<p>No metafields for this product.</a>
+<% end %>
+<h4>Create new field</h4>
+<form method="post" action="<%= metafields_path %>" class="form col-md-4">
+  <div class="form-group">
+      <input class="form-control" name="metafield[key]" placeholder="key">
+  </div>
+  <div class="form-group">
+      <textarea class="form-control" name="metafield[value]" placeholder="value"></textarea>
+  </div>
+  <div class="form-group">
+      <input class="form-control" name="metafield[namespace]" placeholder="namespace">
+  </div>
+      <input type="hidden" name="metafield[value_type]" value="string">
+      <input type="hidden" name="metafield[resource]" value="products">
+      <input type="hidden" name="redirect_to" value="/products/<%= @product.id %>">
+      <input type="hidden" name="metafield[resource_id]" value="<%= @product.id %>">
+      <button type="submit" class="btn btn-info">Create</button>
+  </div>
+</form>
+</li>

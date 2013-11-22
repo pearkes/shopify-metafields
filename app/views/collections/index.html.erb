@@ -1,0 +1,14 @@
+<h2>Collections</h2>
+<% if @collections.blank? %>
+
+There are no collections in your store.
+
+<% else %>
+  <ul class="list-group">
+    <% @collections.each do |collection| %>
+      <li class="list-group-item">
+        <h3><%= link_to(collection.title, collection_path(collection)) %></h3>
+      </li>
+   <% end %>
+  </ul>
+<% end %>
